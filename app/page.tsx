@@ -1,7 +1,8 @@
-import DashboardLayout from "@/components/layout/DashboardLayout";
-import DownloadForm from "@/components/dashboard/DownloadForm";
-import RecentDownloads from "@/components/dashboard/RecentDownloads";
-import StatCard from "@/components/dashboard/StatCard";
+import DashboardLayout from "./components/layout/DashboardLayout";
+// import DownloadForm from "./components/dashboard/DownloadForm";
+import RecentDownloads from "./components/dashboard/RecentDownloads";
+import StatCard from "./components/dashboard/StatCard";
+
 
 export default function Home() {
   return (
@@ -28,7 +29,7 @@ export default function Home() {
           />
         </div>
 
-        <DownloadForm />
+        {/* <DownloadForm /> */}
 
         <RecentDownloads />
       </div>
