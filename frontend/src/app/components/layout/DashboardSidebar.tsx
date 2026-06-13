@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -11,6 +11,7 @@ import {
     CheckCircle2,
     Zap
 } from "lucide-react";
+import { UsingKeyModal } from "@/app/components/ui/UsingKeyModal";
 
 const mainNav = [
     { name: "Home", href: "/dashboard", icon: Home },
@@ -34,6 +35,9 @@ const services = [
 
 export function DashboardSidebar() {
     const pathname = usePathname();
+
+    // 1. Declare state INSIDE the component
+    const [isKeyModalOpen, setIsKeyModalOpen] = useState(false);
 
     return (
         <aside className="w-64 bg-[#14162b] border-r border-[#2a2d4a] h-screen flex flex-col hidden lg:flex flex-shrink-0 text-slate-300">
@@ -74,13 +78,14 @@ export function DashboardSidebar() {
                 {/* Using Key */}
                 <div>
                     <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wider px-3 mb-2">Using Key</h4>
-                    <Link
-                        href="/using-key"
-                        className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-[#1e213a] hover:text-white transition-colors"
+                    {/* 2. Use a standard lowercase button */}
+                    <button
+                        onClick={() => setIsKeyModalOpen(true)}
+                        className="w-full text-left flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-[#1e213a] hover:text-white transition-colors"
                     >
                         <Key className="w-4 h-4" />
                         <span>Using Key</span>
-                    </Link>
+                    </button>
                 </div>
 
                 {/* Services */}
@@ -99,6 +104,12 @@ export function DashboardSidebar() {
                     </div>
                 </div>
             </div>
+
+            {/* 3. Render the Modal component at the bottom of the aside */}
+            <UsingKeyModal
+                isOpen={isKeyModalOpen}
+                onClose={() => setIsKeyModalOpen(false)}
+            />
         </aside>
     );
 }
