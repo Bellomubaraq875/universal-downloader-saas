@@ -19,24 +19,23 @@ const mainNav = [
     { name: "Rules", href: "/rules", icon: FileText },
 ];
 
+// Added proper routing slugs (hrefs) for every service
 const services = [
-    { name: "Envato Elements", color: "bg-[#7bb343]", icon: Zap },
-    { name: "Freepik Premium", color: "bg-[#0f73ee]", icon: Zap },
-    { name: "Flaticon", color: "bg-[#14b8a6]", icon: Zap },
-    { name: "Epidemic Sound", color: "bg-[#f97316]", icon: Zap },
-    { name: "MotionArray", color: "bg-[#6366f1]", icon: Zap },
-    { name: "Shutterstock", color: "bg-[#ef4444]", icon: Zap },
-    { name: "Vecteezy", color: "bg-[#f59e0b]", icon: Zap },
-    { name: "UI8", color: "bg-[#a855f7]", icon: Zap },
-    { name: "Ideogram", color: "bg-[#d946ef]", icon: Zap },
-    { name: "Midjourney", color: "bg-[#1f2937]", icon: Zap },
-    { name: "Nano Banana Pro", color: "bg-[#eab308]", icon: Zap },
+    { name: "Envato Elements", href: "/services/envato-elements", color: "bg-[#7bb343]", icon: Zap },
+    { name: "Freepik Premium", href: "/services/freepik-premium", color: "bg-[#0f73ee]", icon: Zap },
+    { name: "Flaticon", href: "/services/flaticon", color: "bg-[#14b8a6]", icon: Zap },
+    { name: "Epidemic Sound", href: "/services/epidemic-sound", color: "bg-[#f97316]", icon: Zap },
+    { name: "MotionArray", href: "/services/motion-array", color: "bg-[#6366f1]", icon: Zap },
+    { name: "Shutterstock", href: "/services/shutterstock", color: "bg-[#ef4444]", icon: Zap },
+    { name: "Vecteezy", href: "/services/vecteezy", color: "bg-[#f59e0b]", icon: Zap },
+    { name: "UI8", href: "/services/ui8", color: "bg-[#a855f7]", icon: Zap },
+    { name: "Ideogram", href: "/services/ideogram", color: "bg-[#d946ef]", icon: Zap },
+    { name: "Midjourney", href: "/services/midjourney", color: "bg-[#1f2937]", icon: Zap },
+    { name: "Nano Banana Pro", href: "/services/nano-banana-pro", color: "bg-[#eab308]", icon: Zap },
 ];
 
 export function DashboardSidebar() {
     const pathname = usePathname();
-
-    // 1. Declare state INSIDE the component
     const [isKeyModalOpen, setIsKeyModalOpen] = useState(false);
 
     return (
@@ -78,7 +77,6 @@ export function DashboardSidebar() {
                 {/* Using Key */}
                 <div>
                     <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wider px-3 mb-2">Using Key</h4>
-                    {/* 2. Use a standard lowercase button */}
                     <button
                         onClick={() => setIsKeyModalOpen(true)}
                         className="w-full text-left flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-[#1e213a] hover:text-white transition-colors"
@@ -92,20 +90,24 @@ export function DashboardSidebar() {
                 <div>
                     <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wider px-3 mb-2">Services</h4>
                     <div className="space-y-1.5">
-                        {services.map((service) => (
-                            <button
-                                key={service.name}
-                                className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium text-white transition-opacity hover:opacity-90 ${service.color}`}
-                            >
-                                <service.icon className="w-4 h-4 text-white/80" />
-                                <span>{service.name}</span>
-                            </button>
-                        ))}
+                        {services.map((service) => {
+                            const isActive = pathname === service.href;
+                            return (
+                                <Link
+                                    key={service.name}
+                                    href={service.href}
+                                    className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium text-white transition-all hover:opacity-90 ${service.color} ${isActive ? "ring-2 ring-white ring-offset-2 ring-offset-[#14162b]" : "opacity-95"
+                                        }`}
+                                >
+                                    <service.icon className="w-4 h-4 text-white/80 shrink-0" />
+                                    <span className="truncate">{service.name}</span>
+                                </Link>
+                            );
+                        })}
                     </div>
                 </div>
             </div>
 
-            {/* 3. Render the Modal component at the bottom of the aside */}
             <UsingKeyModal
                 isOpen={isKeyModalOpen}
                 onClose={() => setIsKeyModalOpen(false)}
